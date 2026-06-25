@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agro Forte - Calculadora de Água</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: #e8f5e9;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    max-width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align: center;
+    color: #2e7d32;
+}
+
+label{
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button{
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+    background: #1b5e20;
+}
+
+#resultado{
+    margin-top: 20px;
+    padding: 15px;
+    background: #f1f8e9;
+    border-radius: 5px;
+    text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>🌱 Agro Forte</h1>
+
+    <label>Área Plantada (hectares)</label>
+    <input type="number" id="area">
+
+    <label>Horas de Irrigação por Dia</label>
+    <input type="number" id="horas">
+
+    <button onclick="calcularAgua()">
+        Calcular Consumo
+    </button>
+
+    <div id="resultado">
+        Informe os dados acima.
+    </div>
+</div>
+
+<script>
+function calcularAgua(){
+
+    const area = parseFloat(document.getElementById("area").value);
+    const horas = parseFloat(document.getElementById("horas").value);
+
+    if(isNaN(area) || isNaN(horas)){
+        document.getElementById("resultado").innerHTML =
+        "⚠️ Preencha todos os campos.";
+        return;
+    }
+
+    const consumo = area * horas * 1000;
+
+    let nivel = "";
+
+    if(consumo < 20000){
+        nivel = "🟢 Consumo Baixo";
+    }
+    else if(consumo < 50000){
+        nivel = "🟡 Consumo Médio";
+    }
+    else{
+        nivel = "🔴 Consumo Alto";
+    }
+
+    document.getElementById("resultado").innerHTML =
+    "<h3>Resultado</h3>" +
+    "<p>Consumo estimado: <strong>" +
+    consumo.toLocaleString('pt-BR') +
+    " litros/dia</strong></p>" +
+    "<p>" + nivel + "</p>";
+}
+</script>
+
+</body>
+</html>
